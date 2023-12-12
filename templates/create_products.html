@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Product</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    {% include 'nav.html' %}
+    <div class="container mt-5">
+        <h1>Create Product</h1>
+        <form method="post" action="/create_products">
+            <div class="form-group">
+                <label for="Customer">Customer</label>
+                <input type="text" class="form-control" id="Customer" name="Customer" required>
+            </div>
+            <div class="form-group">
+                <label for="Product_Group">Product Group</label>
+                <input type="text" class="form-control" id="Product_Group" name="Product Group" required>
+            </div>
+            <div class="form-group">
+                <label for="Product_Line">Product Line</label>
+                <input type="text" class="form-control" id="Product_Line" name="Product Line" required>
+            </div>
+            <div class="form-group">
+                <label for="City">City</label>
+                <input type="text" class="form-control" id="City" name="City" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-3d">Create</button>
+        </form>
+    </div>
+</body>
+</html>

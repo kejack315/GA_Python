@@ -1,0 +1,97 @@
+<!-- dashboard.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    {% include 'nav.html' %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <canvas id="customerProductChart" width="400" height="200"></canvas>
+                <p class="text-center"><strong>Customer and Product Line</strong></p>
+            </div>
+            <div class="col">
+                <canvas id="customerCityChart" width="400" height="200"></canvas>
+                <p class="text-center"><strong>Customer and City</strong></p>
+            </div>
+            <div class="col">
+                <canvas id="cityProductChart" width="400" height="200"></canvas>
+                <p class="text-center"><strong>City and Product Line</strong></p>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Replace the following with your actual chart data
+            var customerProductData = {{ customer_product_data | safe }};
+            var customerCityData = {{ customer_city_data | safe }};
+            var cityProductData = {{ city_product_data | safe }};
+
+            // Create and render charts
+            var ctx1 = document.getElementById('customerProductChart').getContext('2d');
+            var ctx2 = document.getElementById('customerCityChart').getContext('2d');
+            var ctx3 = document.getElementById('cityProductChart').getContext('2d');
+
+            var chart1 = new Chart(ctx1, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(customerProductData),
+                    datasets: Object.keys(customerProductData[Object.keys(customerProductData)[0]]).map(function (productLine) {
+                        return {
+                            label: productLine,
+                            data: Object.values(customerProductData).map(function (counts) {
+                                return counts[productLine];
+                            }),
+                        };
+                    }),
+                },
+                options: {
+                    // Customize options as needed
+                }
+            });
+
+            var chart2 = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(customerCityData),
+                    datasets: Object.keys(customerCityData[Object.keys(customerCityData)[0]]).map(function (city) {
+                        return {
+                            label: city,
+                            data: Object.values(customerCityData).map(function (counts) {
+                                return counts[city];
+                            }),
+                        };
+                    }),
+                },
+                options: {
+                    // Customize options as needed
+                }
+            });
+
+             var chart3 = new Chart(ctx3, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(cityProductData),
+                    datasets: Object.keys(cityProductData[Object.keys(cityProductData)[0]]).map(function (productLine) {
+                        return {
+                            label: productLine,
+                            data: Object.values(cityProductData).map(function (counts) {
+                                return counts[productLine];
+                            }),
+                        };
+                    }),
+                },
+                options: {
+                    // Customize options as needed
+                }
+            });
+        });
+    </script>
+</body>
+</html>

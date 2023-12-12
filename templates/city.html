@@ -1,0 +1,43 @@
+<!-- products.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+<body>
+ {% include 'nav.html' %}
+    <div class="container mt-5">
+        <h1>Customers&Cities</h1>
+        {{ pagination.info }}
+        {{ pagination.links }}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>City</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for combined in combineds %}
+                <tr>
+                    <td>{{ combined['Customer'] }}</td>
+                    <td>{{ combined['City'] }}</td>
+                    <td>
+                        <a href="/edit_products/{{ loop.index0 }}" class="btn btn-primary btn-lg btn-3d"><i class="fa fa-edit"></i>Edit</a>
+                        <a href="/delete_products/{{ loop.index0 }}" class="btn btn-danger btn-lg btn-3d"><i class="fa fa-trash"></i>Delete</a>
+                        <a href="/products/{{ loop.index0 }}" class="btn btn-info btn-lg btn-3d"><i class="fa fa-eye"></i>Show</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {{ pagination.links }}
+    </div>
+
+</body>
+</html>
